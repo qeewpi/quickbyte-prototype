@@ -1,4 +1,4 @@
-### Git and NPM Command Cheat Sheet
+#### Git and NPM Command Cheat Sheet
 
 This is the documentation for the Git and NPM commands that I use most frequently in this coding project. This cheat sheet is intended to be a quick reference guide for myself.
 
