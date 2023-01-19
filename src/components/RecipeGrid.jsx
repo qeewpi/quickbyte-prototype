@@ -1,23 +1,48 @@
+import { Splide, SplideSlide } from "@splidejs/react-splide";
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Link, useLocation } from "react-router-dom";
 
-function RecipeGrid({ searchedRecipes }) {
+function RecipeGrid() {
+  const { state } = useLocation();
+  const { recipes, filteredRecipes } = state;
+
   return (
-    <Grid>
-      {searchedRecipes.map((item) => {
-        return (
-          <Card key={item.id}>
-            <Link to={"/recipe/" + item.id}>
-              <img src={item.image} alt="" />
-              <h4>{item.title}</h4>
-            </Link>
-          </Card>
-        );
-      })}
-    </Grid>
+    <div>
+      <h2>Recipes</h2>
+      <Grid>
+        {recipes.map((item) => {
+          return (
+            <Card key={item.id}>
+              <Link to={"/recipe/" + item.id}>
+                <img src={item.image} alt="" />
+                <h4>{item.title}</h4>
+              </Link>
+            </Card>
+          );
+        })}
+      </Grid>
+
+      <h2>Filtered Recipes</h2>
+      <Grid>
+        {filteredRecipes.map((item) => {
+          return (
+            <Card key={item.id}>
+              <Link to={"/recipe/" + item.id}>
+                <img src={item.image} alt="" />
+                <h4>{item.title}</h4>
+              </Link>
+            </Card>
+          );
+        })}
+      </Grid>
+    </div>
   );
 }
+
+const Wrapper = styled.div`
+  margin: 4rem 0rem;
+`;
 
 const Grid = styled.div`
   display: grid;
@@ -44,6 +69,14 @@ const Card = styled.div`
     font-weight: 600;
     font-size: 1rem;
   }
+`;
+
+const Gradient = styled.div`
+  z-index: 3;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
 `;
 
 export default RecipeGrid;

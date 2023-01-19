@@ -2,6 +2,7 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 function IngredientsSearch() {
   const [ingredient1, setIngredient1] = useState("");
@@ -14,6 +15,8 @@ function IngredientsSearch() {
   const [ingredient8, setIngredient8] = useState("");
   const [ingredient9, setIngredient9] = useState("");
   const [ingredient10, setIngredient10] = useState("");
+
+  const navigate = useNavigate();
 
   const [recipes, setRecipes] = useState([]);
 
@@ -49,6 +52,13 @@ function IngredientsSearch() {
 
     setRecipes(recipesWithNoMissingIngredients);
     console.log(recipesWithNoMissingIngredients);
+
+    navigate("/recipebyingredient", {
+      state: {
+        recipes: data,
+        filteredRecipes: recipesWithNoMissingIngredients,
+      },
+    });
   };
 
   return (
