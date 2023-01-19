@@ -57,7 +57,7 @@ const Card = styled.div`
   }
 
   a {
-    text-decoration: note;
+    text-decoration: none;
   }
 
   h4 {
