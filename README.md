@@ -28,6 +28,10 @@ Fetches the latest changes from the remote repository and merges them into the l
 
 Sends the committed changes to the remote repository.
 
+# `git push -u origin main`
+
+Sends the committed changes to the remote repository, and sets the upstream branch to the `main` branch on the `origin` remote. This command will also set the current branch to track the remote branch, so that in the future you can simply use `git push` instead of `git push -u origin main`
+
 # `git branch <name>`
 
 Creates a new branch with the given name.
@@ -39,3 +43,31 @@ Shows the current branch and all available branches.
 # `git checkout <branch>`
 
 Switches to the specified branch.
+
+# `git merge <branch>`
+
+Merges the specified branch into the current branch.
+
+## NPM Commands
+
+# `npm install netlify-cli -g`
+
+Installs the Netlify CLI globally.
+
+# `npm run build`
+
+Runs the build script defined in the project's package.json file.
+
+# `CI=false npm run build`
+
+Runs the build script with CI environment variable set to false.
+
+# `netlify deploy`
+
+Deploys the current project to Netlify's CDN.
+
+# `netlify deploy --prod`
+
+Deploys the current project to Netlify's production environment.
+
+Please note that these commands are general and your exact steps and commands may vary depending on your specific project and setup.
