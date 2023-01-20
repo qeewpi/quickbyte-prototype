@@ -9,74 +9,67 @@ function RecipeGrid() {
 
   return (
     <div>
-      <h2>Recipes</h2>
-      <Grid>
-        {recipes.map((item) => {
-          return (
-            <Card key={item.id}>
-              <Link to={"/recipe/" + item.id}>
-                <img src={item.image} alt="" />
-                <h4>{item.title}</h4>
-              </Link>
-            </Card>
-          );
-        })}
-      </Grid>
+      {recipes.length > 0 ? (
+        <>
+          <h3>Recipes</h3>
+          <Grid1>
+            {recipes.map((item) => {
+              return (
+                <Card key={item.id}>
+                  <Link to={"/recipe/" + item.id}>
+                    <img src={item.image} alt="" />
+                    <h4>{item.title}</h4>
+                  </Link>
+                </Card>
+              );
+            })}
+          </Grid1>
+        </>
+      ) : null}
 
-      <h2>Filtered Recipes</h2>
-      <Grid>
-        {filteredRecipes.map((item) => {
-          return (
-            <Card key={item.id}>
-              <Link to={"/recipe/" + item.id}>
-                <img src={item.image} alt="" />
-                <h4>{item.title}</h4>
-              </Link>
-            </Card>
-          );
-        })}
-      </Grid>
+      {filteredRecipes.length > 0 ? (
+        <>
+          <h3>Filtered Recipes</h3>
+          <Grid2>
+            {filteredRecipes.map((item) => {
+              return (
+                <Card key={item.id}>
+                  <Link to={"/recipe/" + item.id}>
+                    <img src={item.image} alt="" />
+                    <h4>{item.title}</h4>
+                  </Link>
+                </Card>
+              );
+            })}
+          </Grid2>
+        </>
+      ) : null}
     </div>
   );
 }
 
-const Wrapper = styled.div`
-  margin: 4rem 0rem;
-`;
-
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 2rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  grid-gap: 3rem;
 `;
 
-const Card = styled.div`
-  border-radius: 2rem;
-  overflow: hidden;
-  position: relative;
+const Grid1 = styled(Grid)``;
+const Grid2 = styled(Grid)``;
 
+const Card = styled.div`
   img {
-    border-radius: 2rem;
     width: 100%;
-    height: 15rem;
-    object-fit: cover;
+    border-radius: 2rem;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   h4 {
-    margin: 1rem 0;
     text-align: center;
-    font-weight: 600;
-    font-size: 1rem;
+    padding: 1rem;
   }
 `;
-
-const Gradient = styled.div`
-  z-index: 3;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
-`;
-
 export default RecipeGrid;

@@ -5,54 +5,23 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 
 function IngredientsSearch() {
-  const [ingredient1, setIngredient1] = useState("");
-  const [ingredient2, setIngredient2] = useState("");
-  const [ingredient3, setIngredient3] = useState("");
-  const [ingredient4, setIngredient4] = useState("");
-  const [ingredient5, setIngredient5] = useState("");
-  const [ingredient6, setIngredient6] = useState("");
-  const [ingredient7, setIngredient7] = useState("");
-  const [ingredient8, setIngredient8] = useState("");
-  const [ingredient9, setIngredient9] = useState("");
-  const [ingredient10, setIngredient10] = useState("");
-
+  const [ingredients, setIngredients] = useState(Array(10).fill(""));
   const navigate = useNavigate();
-
   const [recipes, setRecipes] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let ingredients = [
-      ingredient1,
-      ingredient2,
-      ingredient3,
-      ingredient4,
-      ingredient5,
-      ingredient6,
-      ingredient7,
-      ingredient8,
-      ingredient9,
-      ingredient10,
-    ];
-    // remove empty strings from ingredients array
-    ingredients = ingredients.filter(Boolean);
+    let filteredIngredients = ingredients.filter(Boolean);
     const api = await fetch(
       `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${
         process.env.REACT_APP_API_KEY
-      }&ingredients=${ingredients.join(",")}&number=20&ranking=2`
+      }&ingredients=${filteredIngredients.join(",")}&number=10&ranking=2`
     );
-
     const data = await api.json();
-
     const recipesWithNoMissingIngredients = data.filter(
       (recipe) => !recipe.missedIngredientCount
     );
-
-    console.log(data);
-
     setRecipes(recipesWithNoMissingIngredients);
-    console.log(recipesWithNoMissingIngredients);
-
     navigate("/recipebyingredient", {
       state: {
         recipes: data,
@@ -60,92 +29,105 @@ function IngredientsSearch() {
       },
     });
   };
-
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Ingredient 1:
-        <input
-          type="text"
-          value={ingredient1}
-          onChange={(e) => setIngredient1(e.target.value)}
-        />
-      </label>
-      <label>
-        Ingredient 2:
-        <input
-          type="text"
-          value={ingredient2}
-          onChange={(e) => setIngredient2(e.target.value)}
-        />
-      </label>
-      <label>
-        Ingredient 3:
-        <input
-          type="text"
-          value={ingredient3}
-          onChange={(e) => setIngredient3(e.target.value)}
-        />
-      </label>
-      <label>
-        Ingredient 4:
-        <input
-          type="text"
-          value={ingredient4}
-          onChange={(e) => setIngredient4(e.target.value)}
-        />
-      </label>
-      <label>
-        Ingredient 5:
-        <input
-          type="text"
-          value={ingredient5}
-          onChange={(e) => setIngredient5(e.target.value)}
-        />
-      </label>
-      <label>
-        Ingredient 6:
-        <input
-          type="text"
-          value={ingredient6}
-          onChange={(e) => setIngredient6(e.target.value)}
-        />
-      </label>
-      <label>
-        Ingredient 7:
-        <input
-          type="text"
-          value={ingredient7}
-          onChange={(e) => setIngredient7(e.target.value)}
-        />
-      </label>
-      <label>
-        Ingredient 8:
-        <input
-          type="text"
-          value={ingredient8}
-          onChange={(e) => setIngredient8(e.target.value)}
-        />
-      </label>
-      <label>
-        Ingredient 9:
-        <input
-          type="text"
-          value={ingredient9}
-          onChange={(e) => setIngredient9(e.target.value)}
-        />
-      </label>
-      <label>
-        Ingredient 10:
-        <input
-          type="text"
-          value={ingredient10}
-          onChange={(e) => setIngredient10(e.target.value)}
-        />
-      </label>
-      <button type="submit">Search</button>
-    </form>
+    <Wrapper>
+      <h3>Search for recipes by ingredients</h3>
+      <FormWrapper>
+        <Form onSubmit={handleSubmit}>
+          <Grid>
+            {Array.from({ length: 10 }, (_, i) => (
+              <label key={i}>
+                Ingredient {i + 1}:
+                <input
+                  type="text"
+                  value={ingredients[i]}
+                  onChange={(e) =>
+                    setIngredients((prevIngredients) => {
+                      prevIngredients[i] = e.target.value;
+                      return [...prevIngredients];
+                    })
+                  }
+                />
+              </label>
+            ))}
+          </Grid>
+          <ButtonWrapper>
+            <Button type="submit">Search</Button>
+          </ButtonWrapper>
+        </Form>
+      </FormWrapper>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  justify-content: center;
+  align-items: center;
+`;
+
+const FormWrapper = styled.div`
+  margin-top: 2rem;
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2rem;
+  // only in the center
+  justify-content: center;
+`;
+
+const Form = styled.form`
+  font-size: 1.25rem;
+  // form boxes larger
+  input {
+    font-size: 1.25rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #f5f5f5;
+    color: #000;
+  }
+  // display in grid in the center of the page
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  // margin between each label and input
+  label {
+    color: #313131;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  // display button separately
+  button {
+    // opposite color
+    background-color: #313131;
+    color: #fff;
+    margin-top: 2rem;
+  }
+`;
+
+// style button aligned to size of input boxes
+const Button = styled.button`
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #f5f5f5;
+  color: #000;
+  cursor: pointer;
+  &:hover {
+    background-color: #000;
+    color: #fff;
+  }
+`;
+
+// display button separately from form
+const ButtonWrapper = styled.div`
+  display: flex;
+`;
 
 export default IngredientsSearch;

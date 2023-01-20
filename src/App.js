@@ -2,12 +2,14 @@ import Pages from "./pages/Pages";
 import Category from "./components/Category";
 import { BrowserRouter, Link } from "react-router-dom";
 import Search from "./components/Search";
+import ScrollToTop from "./pages/ScrollToTop";
 import styled from "styled-components";
 import { GiKnifeFork } from "react-icons/gi";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Nav>
         <GiKnifeFork />
         <Logo to={"/"}>EveryByte</Logo>

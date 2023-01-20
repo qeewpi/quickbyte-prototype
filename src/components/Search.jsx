@@ -27,10 +27,13 @@ function Search() {
 }
 
 const FormStyle = styled.form`
-  margin: 0rem 20rem;
   div {
+    display: flex;
+    align-items: center;
     position: relative;
-    width: 100%;
+    justify-content: center;
+    width: 70%;
+    margin: 0 auto;
   }
   input {
     border: none;

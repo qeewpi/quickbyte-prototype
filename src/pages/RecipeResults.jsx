@@ -1,11 +1,9 @@
 import RecipeGrid from "../components/RecipeGrid";
 
-function RecipeResults({ location }) {
-  const recipes = location?.state?.recipes || [];
-
+function RecipeResults() {
   return (
     <div>
-      <RecipeGrid recipes={recipes} />
+      <RecipeGrid />
     </div>
   );
 }

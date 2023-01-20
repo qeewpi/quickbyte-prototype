@@ -88,6 +88,7 @@ const DetailWrapper = styled.div`
   margin-top: 5rem;
   margin-bottom: 5rem;
   display: flex;
+  overflow: hidden;
   .active {
     background: linear-gradient(35deg, #494949, #313131);
     color: white;
@@ -96,7 +97,7 @@ const DetailWrapper = styled.div`
     margin-bottom: 2rem;
   }
   li {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 300;
     line-height: 2.5 rem;
   }
@@ -104,16 +105,19 @@ const DetailWrapper = styled.div`
     margin-top: 2rem;
   }
   img {
+    object-fit: cover;
     border-radius: 2rem;
   }
+
   h3 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 300;
   }
 `;
 
 const Button = styled.button`
   padding: 1rem 2rem;
+  margin: 0.5rem 0rem;
   color: #313131;
   background: white;
   border: 2px solid black;
@@ -122,7 +126,8 @@ const Button = styled.button`
 `;
 
 const Info = styled.div`
-  margin-left: 5rem;
+  text-align: justify;
+  margin-left: 3rem;
 `;
 
 const LoadingContainer = styled.div`
